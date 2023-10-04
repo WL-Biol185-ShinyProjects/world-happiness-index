@@ -17,4 +17,8 @@ making more changes
 changes
 Hi
 
+<<<<<<< HEAD
 this is so confusing
+=======
+hello from cami
+>>>>>>> 568a1d316fd0ab32456a8c1daf3e444d8343bf1e
