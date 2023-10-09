@@ -1,12 +1,8 @@
-# world-happiness-index
-<<<<<<< HEAD
-Analyzing happiness measures throughout time across countries in the world
 
 
-Tab 1: Map
-Tab 2: Entire data set
-Tab 3: Comparison plot between different predictors of happiness
-Tab 4: Over time
+library(tidyverse)
+library(psych)
+library(yarrr)
 
 
 whr <- read.csv("world-happiness-report.csv")
