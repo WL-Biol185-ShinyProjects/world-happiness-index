@@ -1,4 +1,9 @@
-# world-happiness-index
+
+
+library(tidyverse)
+library(psych)
+library(yarrr)
+
 
 whr <- read.csv("world-happiness-report.csv")
 
@@ -13,3 +18,4 @@ whr2020 <- whr %>%
   filter(year == 2020) %>%
   filter(!is.na(Log.GDP.per.capita)) %>%
   filter(!is.na(Healthy.life.expectancy.at.birth))
+
