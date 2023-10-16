@@ -3,6 +3,7 @@
 Analyzing happiness measures throughout time across countries in the world
 
 library(dplyr)
+library(tidyverse)
 library(readr)
 library(tidyr)
 library(stringr)
