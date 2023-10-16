@@ -2,6 +2,15 @@
 <<<<<<< HEAD
 Analyzing happiness measures throughout time across countries in the world
 
+library(dplyr)
+library(readr)
+library(tidyr)
+library(stringr)
+library(tibble)
+library(ggplot2)
+library(psych)
+library(yarrr)
+
 
 Tab 1: Map
 Tab 2: Entire data set
