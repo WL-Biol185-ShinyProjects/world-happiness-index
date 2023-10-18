@@ -1,8 +1,9 @@
 # world-happiness-index
-<<<<<<< HEAD
+
 Analyzing happiness measures throughout time across countries in the world
 
 library(dplyr)
+library(tidyverse)
 library(readr)
 library(tidyr)
 library(stringr)
@@ -33,4 +34,10 @@ whr2020 <- whr %>%
   filter(!is.na(Log.GDP.per.capita)) %>%
   filter(!is.na(Healthy.life.expectancy.at.birth))
   
+
+  
+
+# myTable$newColumn <- gsub(r"([ab]d)", ".", myTable$column)
+## use format above for changing country names 
+
 
