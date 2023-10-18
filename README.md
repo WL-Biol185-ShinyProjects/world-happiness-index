@@ -1,5 +1,5 @@
 # world-happiness-index
-<<<<<<< HEAD
+
 Analyzing happiness measures throughout time across countries in the world
 
 library(dplyr)
