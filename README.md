@@ -15,7 +15,7 @@ library(yarrr)
 
 Opening Page: Map (use sapply)
 
-Tab 1: Entire data set
+Tab 1: Entire data set; basically a beautified chart --> make interactive so people can search for a country, select highest/lowest; find particular year,...etc.
 
 Tab 2: Bar graph of happiness rating (life ladder) as a function of country. Life ladder scores on y-axis and country names on x-axis. Drop down for each year --> shows happiest/least happy countries in each year.
 
