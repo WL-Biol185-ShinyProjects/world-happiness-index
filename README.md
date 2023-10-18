@@ -34,10 +34,6 @@ whr2020 <- whr %>%
   filter(!is.na(Log.GDP.per.capita)) %>%
   filter(!is.na(Healthy.life.expectancy.at.birth))
   
-  change1
-  
-
-  
 
 # myTable$newColumn <- gsub(r"([ab]d)", ".", myTable$column)
 ## use format above for changing country names 
