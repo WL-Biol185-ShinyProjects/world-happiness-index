@@ -32,6 +32,6 @@ whr2020 <- whr %>%
   filter(!is.na(Log.GDP.per.capita)) %>%
   filter(!is.na(Healthy.life.expectancy.at.birth))
   
-  change
+  change1
   
 
