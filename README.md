@@ -12,11 +12,12 @@ library(psych)
 library(yarrr)
 
 
-Tab 1: Map
-Tab 2: Entire data set
-Tab 3: Comparison plot between different predictors of happiness (life ladder vs every other variable; one for earliest year and one for most recent for a total of 8 plots)
-Tab 4: Over time (drop down where we can choose specific countries and have a simple line plot for time vs life ladder)
-
+Opening Page: Map
+Tab 1: Entire data set
+Tab 2: Comparison plot between different predictors of happiness (life ladder (y-axis) vs every other variable (x-axis); this is a scatter plot where each dot is a country - have to use brush tool for this - and we will have a slider to choose the year))
+Tab 3: Life ladder and all the indicators (y-axis) over time (x-axis) (drop down where we can choose specific countries and have a simple line plot)
+Tab 4:
+Tab 5: 
 
 whr <- read.csv("world-happiness-report.csv")
 
