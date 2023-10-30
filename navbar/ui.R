@@ -1,0 +1,151 @@
+
+
+
+library(shiny)
+library(tidyverse)
+library(leaflet)
+library(ggplot2)
+library(DT)
+
+world <- read.csv("world-happiness-report.csv")
+
+whrDATA <- world %>%
+  select(1:7) %>%
+  rename(Country = Country.name,
+         Year = year,
+         Happiness = Life.Ladder,
+         GDP = Log.GDP.per.capita,
+         Support = Social.support,
+         LE = Healthy.life.expectancy.at.birth,
+         Freedom = Freedom.to.make.life.choices)
+
+whr2020 <- whrDATA %>%
+  filter(Year == 2020) %>%
+  filter(!is.na(GDP)) %>%
+  filter(!is.na(LE)) %>%
+  filter(!is.na(Freedom))
+
+lnglat <- read.csv("country-capital-lat-long-population.csv") %>%
+  select(Country, Longitude, Latitude)
+
+lnglat[25, 1] <- "Bolivia"
+lnglat[54, 1] <- "Ivory Coast"
+lnglat[59, 1] <- "Czech Republic"
+lnglat[116, 1] <- "Laos"
+lnglat[169, 1] <- "South Korea"
+lnglat[170, 1] <- "Moldova"
+lnglat[173, 1] <- "Russia"
+lnglat[206, 1] <- "North Macedonia"
+lnglat[222, 1] <- "Tanzania"
+lnglat[223, 1] <- "United States"
+
+llworld <- left_join(whr2020, lnglat)
+
+flag <- read.csv("flags_iso.csv")
+
+flag <- flag %>%
+  select(1, 4)
+
+flag[21, 1] <- "Bolivia"
+flag[46, 1] <- "Czech Republic"
+flag[50, 1] <- "Dominican Republic"
+flag[42, 1] <- "Ivory Coast"
+flag[92, 1] <- "South Korea"
+flag[95, 1] <- "Laos"
+flag[115, 1] <- "Moldova"
+flag[125, 1] <- "Netherlands"
+flag[139, 1] <- "Philippines"
+flag[143, 1] <- "North Macedonia"
+flag[145, 1] <- "Russia"
+flag[173, 1] <- "Tanzania"
+flag[185, 1] <- "United Arab Emirates"
+flag[186, 1] <- "United Kingdom"
+flag[187, 1] <- "United States"
+
+
+worldflag <- left_join(llworld, flag)
+
+llworld <- worldflag
+
+newcol <- paste0("<p><b><em>Country</b></em>", "=", llworld$Country,
+                 "<p><b><em>Happiness</b></em>", "=", llworld$Happiness,
+                 "<p><b><em>GDP</b></em>", "=", llworld$GDP,
+                 "<p><b><em>Support</b></em>", "=", llworld$Support,
+                 "<p><b><em>LE</b></em>", "=", llworld$LE,
+                 "<p><b><em>Freedom</b></em>", "=", llworld$Freedom,
+                 '<p><img src="', llworld$URL, '"></img></p>')
+
+newcol <- as.data.frame(newcol)
+
+llworld2 <- bind_cols(llworld, newcol)
+
+
+navbarPage("NavBar",
+           tabPanel("Introduction",
+                    titlePanel("World Happiness Report: An Introduction"),
+                    mainPanel(p("This app explores the happiness index data across the world and throughout time (2005-2020) published by the World Gallup Poll. The data features different countries along with their happiness levels as predicted by 4 different variables. These 4 variables include: GDP, Social Support, Life Expectancy, and Freedom.
+              GDP data was collected from a variety of economic sources, Life Expectancy data was collected from the World Health Organization (WHO), and all other values were self-reported and used to compile national averages."),
+                              
+                              p("Happiness is measured on a scale of 0-10, where a 0 represents the worst possible life for you, and a 10 represents the best possible life for you."),
+                              
+                              p("GDP stands for Gross Domestic Product. It measures the monetary value of a country's goods and services. Wealthier countries tend to exhibit higher GDP values."),
+                              
+                              p("Support represents the percieved levels of social support. Support of measured on a scale of 0-1, where a 0 represents the feeling of not having anyone to count on during times of trouble, and a 1 represents the sense of having this support."),
+                              
+                              p("Life Expectancy (LE) is the measure of the average life span of a country's population (in years)."),
+                              
+                              p("Freedom represents the perception of one's ability to make autonomous life choices. It is measured on a scale of 0-1, where a 0 represents dissatisfaction with one's freedom to make life choices, and a 1 represents satisfaction with one's autonomy."),
+                              
+                              titlePanel("Plot of Happiness by Country Over Time"),          
+                              selectInput("selectYear", 
+                                          "Year", 
+                                          choices = unique(whrDATA$Year)),
+                              plotOutput("HappinessvsCountryPlot"))),
+           
+           tabPanel("Map",
+                    titlePanel("Map of World Happiness Indicies in 2020"),
+                    mainPanel(
+                      p("This map shows different countries around the world. 
+      The pop-ups, which are placed at each country's capital city, feature 7 different pieces of information: 
+      the country name, 
+      the country's happiness index, 
+      the country's GDP, 
+      the country's perception of social support, 
+      the country's life expectency, 
+      the country's perception of freedom, 
+      and lastly, the country's flag."),
+                      leafletOutput("worldMap"))
+                    ),
+           tabPanel("Raw Data Table",
+                    titlePanel("World Happiness Index Raw Data"),
+                    mainPanel(p("This table depicts the raw data table of the World Happiness Index that we obtained, which includes the country name, year, happiness, and all the happiness predictors.")),
+                    basicPage(
+                      DT::dataTableOutput("mytable"))),
+           
+           tabPanel("Happiness vs Indicators Plots",
+                    titlePanel("Happiness vs Different Indicators"),
+                    sidebarLayout(
+                      sidebarPanel(
+                        selectInput("selectyear", "Year:",
+                                    choices=unique(whrDATA$Year)),
+                        hr(),
+                        helpText("Available Years within the Dataset"),
+                        selectInput("selectX", "X:",
+                                    choices=colnames(select(whrDATA, 4:7)))
+                      ),
+                      
+                      mainPanel (
+                        p("Please explore this interactive graph to discover the relationship between a country's happiness and different indicators. 
+             You can alter the specific x-axis indicator to see how this impacts a country's happiness level as well as choose a specific year of interest. 
+             Hovering over each point will display the corresponding country.", style = 'times'),
+                        plotOutput("HappinessvsGDP",
+                                   brush = brushOpts(
+                                     id = "plot_brush",
+                                   )), 
+                        tableOutput("plot_brushinfo")))))
+
+           
+           
+           
+        
+             
