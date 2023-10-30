@@ -34,4 +34,3 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 world-happiness-index.Rproj
-world-happiness-report.csv

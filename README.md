@@ -42,8 +42,6 @@ whr2020 <- whr %>%
   filter(!is.na(Healthy.life.expectancy.at.birth))
   
 
-  
-
 # myTable$newColumn <- gsub(r"([ab]d)", ".", myTable$column)
 ## use format above for changing country names 
 
