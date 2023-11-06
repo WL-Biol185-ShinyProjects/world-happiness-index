@@ -71,6 +71,12 @@ function(input, output, session) {
     df[c("Country", "Year", "Happiness", input$selectX)]
     })
   
+  output$HappinessvsTime <- renderPlot ({
+    whrDATA %>%
+      filter(Country == input$selectcountry) %>%
+      ggplot(aes(Year, Happiness)) + geom_line(color ="blue") + ggtitle("Happiness vs Time")
+  })
+  
   }
   
 
