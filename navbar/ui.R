@@ -6,6 +6,7 @@ library(tidyverse)
 library(leaflet)
 library(ggplot2)
 library(DT)
+library(shinyWidgets)
 
 world <- read.csv("world-happiness-report.csv")
 

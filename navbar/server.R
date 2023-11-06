@@ -8,6 +8,7 @@ library(tidyverse)
 library(leaflet)
 library(ggplot2)
 library(DT)
+library(shinyWidgets)
 
 
 
