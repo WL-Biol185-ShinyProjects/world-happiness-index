@@ -97,7 +97,7 @@ navbarPage("NavBar",
                               
                               p(strong("Freedom"), "represents the perception of one's ability to make autonomous life choices. It is measured on a scale of 0-1, where a 0 represents dissatisfaction with one's freedom to make life choices, and a 1 represents satisfaction with one's autonomy."),
                               titlePanel("Plot of Happiness by Country Over Time"), 
-                              p("This is a bar graph demonstrating the happiness index value of each country. You may choose a specific year to evaluate the trend in a country's happiness index and visualize the overall oscillatons of happiness scores for all countries from year to year."),
+                              p("This is a bar graph demonstrating the happiness index value of each country. You may choose a specific year to evaluate the happiness index scores for countries in that year. By choosing different years, you may then visualize the trends of happiness scores as time changes."),
                               selectInput("selectYear", 
                                           "Year", 
                                           choices = unique(whrDATA$Year)),
@@ -115,7 +115,7 @@ navbarPage("NavBar",
       life expectency, 
       perception of freedom, 
       and lastly, the country's flag."),
-                      leafletOutput("worldMap"))
+                      leafletOutput("worldMap", height = ("100vh")))
                     ),
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
