@@ -120,7 +120,7 @@ navbarPage("NavBar",
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     setBackgroundColor("aliceblue"),
-                    mainPanel(p("This table depicts the raw data table of the World Happiness Index which includes the country name, year, happiness score, and all the happiness predictors.")),
+                    mainPanel(p("This table depicts the raw data table of the World Happiness Index which includes the country name, year, happiness score, and all the happiness predictors. You can search for a certain country, year, or value")),
 
                     basicPage(
                       DT::dataTableOutput("mytable"))),
