@@ -1,8 +1,6 @@
 
 
 
-
-
 library(shiny)
 library(tidyverse)
 library(leaflet)
@@ -72,6 +70,12 @@ function(input, output, session) {
       filter(Year == input$selectyear)
     df[c("Country", "Year", "Happiness", input$selectX)]
     })
+  
+  output$HappinessvsTime <- renderPlot ({
+    whrDATA %>%
+      filter(Country == input$selectcountry) %>%
+      ggplot(aes(Year, Happiness)) + geom_line(color ="blue") + ggtitle("Happiness vs Time")
+  })
   
   }
   
