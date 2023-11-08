@@ -77,6 +77,16 @@ function(input, output, session) {
       ggplot(aes(Year, Happiness)) + geom_line(color ="blue") + ggtitle("Happiness vs Time")
   })
   
+  output$WWRegressionPlot <- renderPlot({
+    regDATA %>%
+      ggplot(aes(x = Year, y = RegCoef, group = Predictor)) +
+      geom_line(aes(color = Predictor)) +
+      geom_point(aes(color = Predictor)) +
+      labs(title = "Correlation of Predictors and Happiness Over Time", x = "Year", y = "Regression Coefficient") + 
+      scale_x_discrete(guide = guide_axis(angle = 90)) +
+      theme_classic()
+  })
+  
   }
   
 

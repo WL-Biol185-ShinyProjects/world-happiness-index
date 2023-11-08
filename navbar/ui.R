@@ -25,6 +25,12 @@ whr2020 <- whrDATA %>%
   filter(!is.na(LE)) %>%
   filter(!is.na(Freedom))
 
+regDATA <- read.csv("overtime.csv") %>%
+  pivot_longer(cols = !(c(Year)),
+               names_to = 'Predictor',
+               values_to = 'RegCoef') %>% 
+  arrange(Year, Predictor, RegCoef)
+
 lnglat <- read.csv("country-capital-lat-long-population.csv") %>%
   select(Country, Longitude, Latitude)
 
@@ -167,8 +173,40 @@ navbarPage("NavBar",
                       )
                     )
                     
-           )
-                    )
+           ),
+           
+           navbarMenu("Chloropleth Graphs",
+                      
+           tabPanel("Happiness Chloropleth",
+                     titlePanel("Happiness Chloropleth Map"),
+                      setBackgroundColor("aliceblue"),
+                      mainPanel(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
+                                  of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
+                                  to its correspoding happiness number"))
+           ),
+                    
+                     tabPanel("GDP Chloropleth"
+                      ),
+                     tabPanel("Socal Support Cloropleth"
+                      ),
+                     tabPanel("Life Expectancy Chloropleth"
+                      ),
+                     tabPanel("Freedom Chloropleth")
+           ),
+           
+           tabPanel("Regression Plot",
+                    titlePanel("Strength of Variables in Predicting Happiness Over Time"),
+                    setBackgroundColor("aliceblue"),
+                    mainPanel(p("This line graph presents worldwide regression data over time. 
+                                To attain this data, multiple regressions were run between Happiness scores and predictor variables (GPD, LE, Freedom, Support) across all countries, for each year included in the study.
+                                Regression coefficients were then standardized to account for differences in measurement scale of the predictor variables.
+                                The resulting regression coefficients indicate how strongly each of the predictor variables correspond with the Happiness outcome.
+                                Larger regression coefficients indicate that the preictor variable had a greater influence on the Happiness score.
+                                Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
+                              plotOutput("WWRegressionPlot")))
+           
+           )   
+
            
         
                              
