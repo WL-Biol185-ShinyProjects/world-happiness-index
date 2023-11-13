@@ -79,7 +79,11 @@ function(input, output, session) {
   lats <- -90:90
   lons <- -180:180
   
+<<<<<<< HEAD
   output$worldMap <- renderLeaflet({
+=======
+  output$worldmapHap <- renderLeaflet({
+>>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
     
     leaflet(geo) %>%
       addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
@@ -106,7 +110,10 @@ function(input, output, session) {
     
   })
   
+<<<<<<< HEAD
   
+=======
+>>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
   output$WWRegressionPlot <- renderPlot({
     regDATA %>%
       ggplot(aes(x = Year, y = RegCoef, group = Predictor)) +
@@ -118,5 +125,3 @@ function(input, output, session) {
   }
   
 
-
-## changes to push
