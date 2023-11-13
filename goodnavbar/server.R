@@ -14,7 +14,7 @@ function(input, output, session) {
   output$HappinessvsCountryPlot <- renderPlot({
     whrDATA %>%
       filter(Year == input$selectYear) %>%
-      ggplot(aes(Country, Happiness)) + geom_bar(stat = "identity", col="gray24", fill = "cornflowerblue", position = position_dodge(0.92), alpha = 0.5) +
+      ggplot(aes(Country, Happiness)) + geom_bar(stat = "identity", col="lightblue1", position = position_dodge(0.92), alpha = 0.5) +
       labs(title = "Happiness by Country", x = "Country", y = "Happiness Index Value") +
       scale_x_discrete(guide = guide_axis(angle = 90)) +
       theme_classic()
@@ -79,11 +79,7 @@ function(input, output, session) {
   lats <- -90:90
   lons <- -180:180
   
-<<<<<<< HEAD
-  output$worldMap <- renderLeaflet({
-=======
   output$worldmapHap <- renderLeaflet({
->>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
     
     leaflet(geo) %>%
       addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
@@ -110,12 +106,6 @@ function(input, output, session) {
     
   })
   
-<<<<<<< HEAD
-<<<<<<< HEAD
-  
-=======
->>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
-=======
   lats <- -90:90
   lons <- -180:180
   
@@ -146,7 +136,6 @@ function(input, output, session) {
     
   })
   
->>>>>>> 8e89876e9954eb94d6a3a0db5447043928c8cf87
   output$WWRegressionPlot <- renderPlot({
     regDATA %>%
       ggplot(aes(x = Year, y = RegCoef, group = Predictor)) +

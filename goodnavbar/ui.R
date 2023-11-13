@@ -6,9 +6,6 @@ library(leaflet)
 library(ggplot2)
 library(DT)
 library(shinyWidgets)
-library(geojsonio)
-library(htmltools)
-library(RColorBrewer)
 
 world <- read.csv("world-happiness-report.csv")
 
@@ -20,9 +17,8 @@ whrDATA <- world %>%
          GDP = Log.GDP.per.capita,
          Support = Social.support,
          LE = Healthy.life.expectancy.at.birth,
-         Freedom = Freedom.to.make.life.choices) %>%
-  arrange(Year, Country, Happiness, GDP, Support, LE, Freedom)
-  
+         Freedom = Freedom.to.make.life.choices)
+
 whr2020 <- whrDATA %>%
   filter(Year == 2020) %>%
   filter(!is.na(GDP)) %>%
@@ -66,24 +62,6 @@ regDATA <- read.csv("overtime.csv") %>%
                names_to = 'Predictor',
                values_to = 'RegCoef') %>% 
   arrange(Year, Predictor, RegCoef)
-
-geo <- geojson_read("countries.geo.json", what = "sp")
-
-hap <- whr2020 %>%
-  select(1, 3)
-
-hap[61, 1] <- "Macedonia"
-hap[68, 1] <- "Republic of Serbia"
-hap[76, 1] <- "United Republic of Tanzania"
-hap[84, 1] <- "United States of America"
-
-geo@data <- left_join(geo@data, hap, by = c("name" = "Country"))
-
-pal <- colorNumeric("Set1", domain = c(0, 10))
-
-labels1 <- sprintf(
-  "<strong>%s</strong><br/>%s = Happiness", geo@data$name, geo@data$Happiness) %>% 
-  lapply(htmltools::HTML)
 
 lnglat <- read.csv("country-capital-lat-long-population.csv") %>%
   select(Country, Longitude, Latitude)
@@ -177,18 +155,10 @@ navbarPage("NavBar",
       life expectency, 
       perception of freedom, 
       and lastly, the country's flag."),
-<<<<<<< HEAD
-      
-            leafletOutput("worldMap", height = ("100vh")))
-                    ),
-
-
-=======
            
                       leafletOutput("worldMap", height = ("100vh")))),
            
            
->>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     setBackgroundColor("aliceblue"),
@@ -196,12 +166,8 @@ navbarPage("NavBar",
                     basicPage(
                       DT::dataTableOutput("mytable"))),
            
-<<<<<<< HEAD
-           tabPanel("Happiness vs Indicators Plots", 
-=======
            
            tabPanel("Happiness vs Indicators Plots",
->>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
                     titlePanel("Happiness vs Different Indicators"),
                     setBackgroundColor("aliceblue"),
                     sidebarLayout(
@@ -241,37 +207,8 @@ navbarPage("NavBar",
            
            navbarMenu("Chloropleth Graphs",
                       
-<<<<<<< HEAD
-<<<<<<< HEAD
-           tabPanel("Happiness Chloropleth",
-                     titlePanel("Happiness Chloropleth Map"),
-                    fluidPage(
-                      titlePanel("Happiness Choropleth"),
-                      mainPanel(
-                        p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
-                                  of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
-                                  to its correspoding happiness number"),
-                        leafletOutput("worldMap"))
-                    ),
-                      setBackgroundColor("aliceblue"),
-                      
-           ),
-                    
-                     tabPanel("GDP Chloropleth"
-                      ),
-                     tabPanel("Socal Support Cloropleth"
-                      ),
-                     tabPanel("Life Expectancy Chloropleth"
-                      ),
-                     tabPanel("Freedom Chloropleth")
-           ),
-=======
-                      tabPanel("Happiness Chloropleth",
-                               titlePanel("Happiness Chloropleth Map"),
-=======
                       tabPanel("Happiness Choropleth",
                                titlePanel("Happiness Choropleth Map"),
->>>>>>> 8e89876e9954eb94d6a3a0db5447043928c8cf87
                                setBackgroundColor("aliceblue"),
                                mainPanel(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
                                   of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
@@ -289,12 +226,8 @@ navbarPage("NavBar",
                       tabPanel("Life Expectancy Chloropleth"),
                       tabPanel("Freedom Chloropleth")),
            
->>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
            
            tabPanel("Regression Plot",
-                    fluidPage(
-                      fluidRow(
-                        column(width = 12),
                     titlePanel("Strength of Variables in Predicting Happiness Over Time"),
                     setBackgroundColor("aliceblue"),
                     mainPanel(p("This line graph presents worldwide regression data over time. 
@@ -303,26 +236,10 @@ navbarPage("NavBar",
                                 The resulting regression coefficients indicate how strongly each of the predictor variables correspond with the Happiness outcome.
                                 Larger regression coefficients indicate that the preictor variable had a greater influence on the Happiness score.
                                 Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
-<<<<<<< HEAD
-                              plotOutput("WWRegressionPlot")))
-                    )))
-
-           
-           
-          
-=======
                               plotOutput("WWRegressionPlot"))))
->>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
 
                       
            
-<<<<<<< HEAD
-
-
-                             
-
-  
-=======
            
            
                       
@@ -349,7 +266,6 @@ navbarPage("NavBar",
 
 
 
->>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
 
            
            
