@@ -25,6 +25,22 @@ whr2020 <- whrDATA %>%
   filter(!is.na(LE)) %>%
   filter(!is.na(Freedom))
 
+hap <- whr2020 %>%
+  select(1, 3)
+
+hap[61, 1] <- "Macedonia"
+hap[68, 1] <- "Republic of Serbia"
+hap[76, 1] <- "United Republic of Tanzania"
+hap[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, hap, by = c("name" = "Country"))
+
+pal <- colorNumeric("Set1", domain = c(0, 10))
+
+labels1 <- sprintf(
+  "<strong>%s</strong><br/>%s = Happiness", geo@data$name, geo@data$Happiness) %>% 
+  lapply(htmltools::HTML)
+
 regDATA <- read.csv("overtime.csv") %>%
   pivot_longer(cols = !(c(Year)),
                names_to = 'Predictor',
@@ -109,6 +125,8 @@ navbarPage("NavBar",
                                           choices = unique(whrDATA$Year)),
                               plotOutput("HappinessvsCountryPlot"))),
            
+           
+           
            tabPanel("Map",
                     titlePanel("Map of World Happiness Indicies in 2020"),
                     fluidPage(
@@ -122,16 +140,16 @@ navbarPage("NavBar",
       perception of freedom, 
       and lastly, the country's flag."),
            
-                      leafletOutput("worldMap", height = ("100vh")))
-                    ),
-
+                      leafletOutput("worldMap", height = ("100vh")))),
+           
+           
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     setBackgroundColor("aliceblue"),
                     mainPanel(p("This table depicts the raw data table of the World Happiness Index which includes the country name, year, happiness score, and all the happiness predictors. You can search for a certain country, year, or value")),
-
                     basicPage(
                       DT::dataTableOutput("mytable"))),
+           
            
            tabPanel("Happiness vs Indicators Plots",
                     titlePanel("Happiness vs Different Indicators"),
@@ -153,8 +171,8 @@ navbarPage("NavBar",
                                    brush = brushOpts(
                                      id = "plot_brush",
                                    )), 
-                        tableOutput("plot_brushinfo"))),
-           ),
+                        tableOutput("plot_brushinfo")))),
+           
            
            tabPanel("Happiness over Time",
                     setBackgroundColor("aliceblue"),
@@ -169,30 +187,23 @@ navbarPage("NavBar",
                       mainPanel (
                         p("Please choose a country from the dropdown to visualize how its happiness score fluctuates over time.", 
                           style = 'times'),
-                        plotOutput("HappinessvsTime")
-                      )
-                    )
-                    
-           ),
+                        plotOutput("HappinessvsTime")))),
            
            navbarMenu("Chloropleth Graphs",
                       
-           tabPanel("Happiness Chloropleth",
-                     titlePanel("Happiness Chloropleth Map"),
-                      setBackgroundColor("aliceblue"),
-                      mainPanel(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
+                      tabPanel("Happiness Chloropleth",
+                               titlePanel("Happiness Chloropleth Map"),
+                               setBackgroundColor("aliceblue"),
+                               mainPanel(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
                                   of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
-                                  to its correspoding happiness number"))
-           ),
-                    
-                     tabPanel("GDP Chloropleth"
-                      ),
-                     tabPanel("Socal Support Cloropleth"
-                      ),
-                     tabPanel("Life Expectancy Chloropleth"
-                      ),
-                     tabPanel("Freedom Chloropleth")
-           ),
+                                  to its correspoding happiness number")),
+                               leafletOutput("worldmapHap")),
+    
+                      tabPanel("GDP Chloropleth"),
+                      tabPanel("Socal Support Cloropleth"),
+                      tabPanel("Life Expectancy Chloropleth"),
+                      tabPanel("Freedom Chloropleth")),
+           
            
            tabPanel("Regression Plot",
                     titlePanel("Strength of Variables in Predicting Happiness Over Time"),
@@ -203,15 +214,36 @@ navbarPage("NavBar",
                                 The resulting regression coefficients indicate how strongly each of the predictor variables correspond with the Happiness outcome.
                                 Larger regression coefficients indicate that the preictor variable had a greater influence on the Happiness score.
                                 Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
-                              plotOutput("WWRegressionPlot")))
-           
-           )   
+                              plotOutput("WWRegressionPlot"))))
 
+                      
            
-        
-                             
-### changes to push
-  
+           
+           
+                      
+           
+
+         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
            
            
