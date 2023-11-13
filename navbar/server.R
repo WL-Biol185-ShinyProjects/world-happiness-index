@@ -9,7 +9,6 @@ library(DT)
 library(shinyWidgets)
 
 
-
 function(input, output, session) {
 
   output$HappinessvsCountryPlot <- renderPlot({
@@ -119,3 +118,5 @@ function(input, output, session) {
   }
   
 
+
+## changes to push

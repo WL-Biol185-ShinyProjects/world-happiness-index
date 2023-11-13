@@ -142,8 +142,15 @@ navbarPage("NavBar",
       life expectency, 
       perception of freedom, 
       and lastly, the country's flag."),
+<<<<<<< HEAD
             leafletOutput("worldMap", height = ("100vh")))
                     ),
+=======
+           
+                      leafletOutput("worldMap", height = ("100vh")))
+                    ),
+
+>>>>>>> ad536fd0d1d96e331181403f80042a0372945c8c
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     setBackgroundColor("aliceblue"),
@@ -241,7 +248,7 @@ navbarPage("NavBar",
 
 
                              
-           
+### changes to push
   
 
            
