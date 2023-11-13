@@ -6,6 +6,9 @@ library(leaflet)
 library(ggplot2)
 library(DT)
 library(shinyWidgets)
+library(geojsonio)
+library(htmltools)
+library(RColorBrewer)
 
 world <- read.csv("world-happiness-report.csv")
 
@@ -30,6 +33,24 @@ regDATA <- read.csv("overtime.csv") %>%
                names_to = 'Predictor',
                values_to = 'RegCoef') %>% 
   arrange(Year, Predictor, RegCoef)
+
+geo <- geojson_read("countries.geo.json", what = "sp")
+
+hap <- whr2020 %>%
+  select(1, 3)
+
+hap[61, 1] <- "Macedonia"
+hap[68, 1] <- "Republic of Serbia"
+hap[76, 1] <- "United Republic of Tanzania"
+hap[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, hap, by = c("name" = "Country"))
+
+pal <- colorNumeric("Set1", domain = c(0, 10))
+
+labels1 <- sprintf(
+  "<strong>%s</strong><br/>%s = Happiness", geo@data$name, geo@data$Happiness) %>% 
+  lapply(htmltools::HTML)
 
 lnglat <- read.csv("country-capital-lat-long-population.csv") %>%
   select(Country, Longitude, Latitude)
@@ -121,18 +142,12 @@ navbarPage("NavBar",
       life expectency, 
       perception of freedom, 
       and lastly, the country's flag."),
-<<<<<<< HEAD
-                      leafletOutput("worldMap"))),
-           
-=======
-                      leafletOutput("worldMap", height = ("100vh")))
+            leafletOutput("worldMap", height = ("100vh")))
                     ),
->>>>>>> 8a2204cbfcf770b0ec79ae13a3186f7dcac365b3
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     setBackgroundColor("aliceblue"),
                     mainPanel(p("This table depicts the raw data table of the World Happiness Index which includes the country name, year, happiness score, and all the happiness predictors. You can search for a certain country, year, or value")),
-
                     basicPage(
                       DT::dataTableOutput("mytable"))),
            
@@ -182,10 +197,16 @@ navbarPage("NavBar",
                       
            tabPanel("Happiness Chloropleth",
                      titlePanel("Happiness Chloropleth Map"),
-                      setBackgroundColor("aliceblue"),
-                      mainPanel(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
+                    fluidPage(
+                      titlePanel("Happiness Choropleth"),
+                      mainPanel(
+                        p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
                                   of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
-                                  to its correspoding happiness number"))
+                                  to its correspoding happiness number"),
+                        leafletOutput("worldMap"))
+                    ),
+                      setBackgroundColor("aliceblue"),
+                      
            ),
                     
                      tabPanel("GDP Chloropleth"
@@ -217,7 +238,8 @@ navbarPage("NavBar",
           
 
            
-        
+
+
                              
            
   
