@@ -114,8 +114,8 @@ navbarPage("NavBar",
       the country's life expectency, 
       the country's perception of freedom, 
       and lastly, the country's flag."),
-                      leafletOutput("worldMap"))
-                    ),
+                      leafletOutput("worldMap"))),
+           
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     mainPanel(p("This table depicts the raw data table of the World Happiness Index that we obtained, which includes the country name, year, happiness, and all the happiness predictors.")),
@@ -131,9 +131,7 @@ navbarPage("NavBar",
                         hr(),
                         helpText("Available Years within the Dataset"),
                         selectInput("selectX", "X:",
-                                    choices=colnames(select(whrDATA, 4:7)))
-                      ),
-                      
+                                    choices=colnames(select(whrDATA, 4:7)))),
                       mainPanel (
                         p("Please explore this interactive graph to discover the relationship between a country's happiness and different indicators. 
              You can alter the specific x-axis indicator to see how this impacts a country's happiness level as well as choose a specific year of interest. 
