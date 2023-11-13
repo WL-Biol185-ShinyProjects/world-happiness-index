@@ -27,6 +27,10 @@ Tab 5: Averaged regression plot; average life ladder and each predictor across a
 
 Tab 6: Country-specific regression plot; Run multiple regression for each country. Plot slope of regression (y-axis) as a function of time; drop down menu to select country. Shows changes in how strongly each predictor correlates with happiness, over time, for each country
 
+Tab 7: Chloropleth maps for happiness and each indicator
+
+Finish going over navbar and tabs. Make sure format is correct and the information is correct and present. For example, have the map take up the full page. Finish aesthetics. 
+
 whr <- read.csv("world-happiness-report.csv")
 
 whr <- whr %>%

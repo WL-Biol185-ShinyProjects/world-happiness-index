@@ -32,11 +32,11 @@ server <- function(input, output) {
   
   output$plot_brushinfo <- renderTable({
     brush <- input$plot_brush
-    brushedPoints(whrDATA, brush) %>%
+    df <- brushedPoints(whrDATA, brush) %>%
       filter(Year == input$selectyear)
     
-   
-    
+    df[c("Country", "Year", "Happiness", input$selectX)]
+  
   })
 }
 

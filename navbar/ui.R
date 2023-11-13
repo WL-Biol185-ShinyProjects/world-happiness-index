@@ -131,7 +131,7 @@ navbarPage("NavBar",
                     basicPage(
                       DT::dataTableOutput("mytable"))),
            
-           tabPanel("Happiness vs Indicators Plots",
+           tabPanel("Happiness vs Indicators Plots", 
                     titlePanel("Happiness vs Different Indicators"),
                     setBackgroundColor("aliceblue"),
                     sidebarLayout(
@@ -195,6 +195,9 @@ navbarPage("NavBar",
            ),
            
            tabPanel("Regression Plot",
+                    fluidPage(
+                      fluidRow(
+                        column(width = 12),
                     titlePanel("Strength of Variables in Predicting Happiness Over Time"),
                     setBackgroundColor("aliceblue"),
                     mainPanel(p("This line graph presents worldwide regression data over time. 
@@ -204,8 +207,11 @@ navbarPage("NavBar",
                                 Larger regression coefficients indicate that the preictor variable had a greater influence on the Happiness score.
                                 Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
                               plotOutput("WWRegressionPlot")))
+                    )))
+
            
-           )   
+           
+          
 
            
         
