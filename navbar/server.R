@@ -111,9 +111,42 @@ function(input, output, session) {
   })
   
 <<<<<<< HEAD
+<<<<<<< HEAD
   
 =======
 >>>>>>> 59b60ab0cf543b9b79ef4048f60fc58e8d2589e5
+=======
+  lats <- -90:90
+  lons <- -180:180
+  
+  output$worldmapGDP <- renderLeaflet({
+    
+    leaflet(geo) %>%
+      addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
+      setView(lng = 0, lat = 0, zoom = 2) %>%
+      addPolygons(fillColor = ~pal(GDP),
+                  weight = 2,
+                  opacity = 1,
+                  color = "white",
+                  dashArray = "3",
+                  fillOpacity = 0.7,
+                  highlightOptions = highlightOptions(
+                    weight = 5,
+                    color = "white",
+                    dashArray = "",
+                    fillOpacity = 0.7,
+                    bringToFront = TRUE),
+                  label = labels2,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto")) %>%
+      addLegend(pal = pal, values = ~GDP, opacity = 0.7, title = NULL,
+                position = "bottomright")
+    
+  })
+  
+>>>>>>> 8e89876e9954eb94d6a3a0db5447043928c8cf87
   output$WWRegressionPlot <- renderPlot({
     regDATA %>%
       ggplot(aes(x = Year, y = RegCoef, group = Predictor)) +

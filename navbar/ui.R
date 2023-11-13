@@ -44,6 +44,22 @@ labels1 <- sprintf(
   "<strong>%s</strong><br/>%s = Happiness", geo@data$name, geo@data$Happiness) %>% 
   lapply(htmltools::HTML)
 
+gdp <- whr2020 %>%
+  select(1, 4)
+
+gdp[61, 1] <- "Macedonia"
+gdp[68, 1] <- "Republic of Serbia"
+gdp[76, 1] <- "United Republic of Tanzania"
+gdp[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, gdp, by = c("name" = "Country"))
+
+pal <- colorNumeric("Set3", domain = c(0, 12))
+
+labels2 <- sprintf(
+  "<strong>%s</strong><br/>%s = GDP", geo@data$name, geo@data$GDP) %>% 
+  lapply(htmltools::HTML)
+
 regDATA <- read.csv("overtime.csv") %>%
   pivot_longer(cols = !(c(Year)),
                names_to = 'Predictor',
@@ -225,6 +241,7 @@ navbarPage("NavBar",
            navbarMenu("Chloropleth Graphs",
                       
 <<<<<<< HEAD
+<<<<<<< HEAD
            tabPanel("Happiness Chloropleth",
                      titlePanel("Happiness Chloropleth Map"),
                     fluidPage(
@@ -250,13 +267,23 @@ navbarPage("NavBar",
 =======
                       tabPanel("Happiness Chloropleth",
                                titlePanel("Happiness Chloropleth Map"),
+=======
+                      tabPanel("Happiness Choropleth",
+                               titlePanel("Happiness Choropleth Map"),
+>>>>>>> 8e89876e9954eb94d6a3a0db5447043928c8cf87
                                setBackgroundColor("aliceblue"),
                                mainPanel(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
                                   of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
                                   to its correspoding happiness number")),
                                leafletOutput("worldmapHap")),
     
-                      tabPanel("GDP Chloropleth"),
+                      tabPanel("GDP Chloropleth",
+                               titlePanel("GDP Choropleth Map"),
+                               setBackgroundColor("aliceblue"),
+                               mainPanel(p("Description")),
+                               leafletOutput("worldmapGDP")),
+                      
+                      
                       tabPanel("Socal Support Cloropleth"),
                       tabPanel("Life Expectancy Chloropleth"),
                       tabPanel("Freedom Chloropleth")),
