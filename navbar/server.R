@@ -1,13 +1,12 @@
 
 
 
-
-
 library(shiny)
 library(tidyverse)
 library(leaflet)
 library(ggplot2)
 library(DT)
+library(shinyWidgets)
 
 
 
@@ -67,9 +66,25 @@ function(input, output, session) {
   
   output$plot_brushinfo <- renderTable({
     brush <- input$plot_brush
-    brushedPoints(whrDATA, brush) %>%
+    df <- brushedPoints(whrDATA, brush) %>%
       filter(Year == input$selectyear)
-    
+    df[c("Country", "Year", "Happiness", input$selectX)]
+    })
+  
+  output$HappinessvsTime <- renderPlot ({
+    whrDATA %>%
+      filter(Country == input$selectcountry) %>%
+      ggplot(aes(Year, Happiness)) + geom_line(color ="blue") + ggtitle("Happiness vs Time")
   })
   
-}
+  output$WWRegressionPlot <- renderPlot({
+    regDATA %>%
+      ggplot(aes(x = Year, y = RegCoef, group = Predictor)) +
+      geom_line(aes(color = Predictor)) +
+      geom_point(aes(color = Predictor)) +
+      labs(title = "Correlation of Predictors and Happiness Over Time", x = "Year", y = "Regression Coefficient")
+  })
+  
+  }
+  
+
