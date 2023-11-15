@@ -172,7 +172,7 @@ newcol <- as.data.frame(newcol)
 llworld2 <- bind_cols(llworld, newcol)
 
 
-navbarPage("NavBar",
+navbarPage("World Happiness Report",
            tabPanel("Introduction",
                     titlePanel("World Happiness Report: An Introduction"),
                     setBackgroundColor("aliceblue"),
@@ -268,6 +268,10 @@ navbarPage("NavBar",
                                setBackgroundColor("aliceblue"),
                                mainPanel(p("This map utilizes color to display and compare the Happiness scores across countries. As a reminder, Happiness is measured on a scale of 0-10, where 0 represents the worst possible life and a 10 represents the best possible life. 
                                            The key on the bottom right shows the Happiness score associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Happiness value.")),
+                               fluidPage(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
+                                  of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
+                                  to its correspoding happiness number")),
+                               
                                leafletOutput("worldmapHap")),
     
                       tabPanel("GDP Choropleth",
