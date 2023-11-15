@@ -21,7 +21,8 @@ whrDATA <- world %>%
          GDP = Log.GDP.per.capita,
          Support = Social.support,
          LE = Healthy.life.expectancy.at.birth,
-         Freedom = Freedom.to.make.life.choices)
+         Freedom = Freedom.to.make.life.choices) %>%
+  arrange(Year, Country, Happiness, GDP, Support, LE, Freedom)
 
 whr2020 <- whrDATA %>%
   filter(Year == 2020) %>%
@@ -175,7 +176,7 @@ function(input, output, session) {
   output$HappinessvsCountryPlot <- renderPlot({
     whrDATA %>%
       filter(Year == input$selectYear) %>%
-      ggplot(aes(Country, Happiness)) + geom_bar(stat = "identity", col="lightblue1", position = position_dodge(0.92), alpha = 0.5) +
+      ggplot(aes(Country, Happiness)) + geom_bar(stat = "identity", col="gray24", fill = "cornflowerblue", position = position_dodge(0.92), alpha = 0.5) +
       labs(title = "Happiness by Country", x = "Country", y = "Happiness Index Value") +
       scale_x_discrete(guide = guide_axis(angle = 90)) +
       theme_classic()
