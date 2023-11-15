@@ -7,6 +7,7 @@ library(leaflet)
 library(ggplot2)
 library(DT)
 library(shinyWidgets)
+library(RColorBrewer)
 
 
 function(input, output, session) {
@@ -84,7 +85,7 @@ function(input, output, session) {
     leaflet(geo) %>%
       addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
       setView(lng = 0, lat = 0, zoom = 2) %>%
-      addPolygons(fillColor = ~pal(Happiness),
+      addPolygons(fillColor = ~pal1(Happiness),
                   weight = 2,
                   opacity = 1,
                   color = "white",
@@ -101,7 +102,7 @@ function(input, output, session) {
                     style = list("font-weight" = "normal", padding = "3px 8px"),
                     textsize = "15px",
                     direction = "auto")) %>%
-      addLegend(pal = pal, values = ~Happiness, opacity = 0.7, title = NULL,
+      addLegend(pal = pal1, values = ~Happiness, opacity = 0.7, title = NULL,
                 position = "bottomright")
     
   })
@@ -114,7 +115,7 @@ function(input, output, session) {
     leaflet(geo) %>%
       addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
       setView(lng = 0, lat = 0, zoom = 2) %>%
-      addPolygons(fillColor = ~pal(GDP),
+      addPolygons(fillColor = ~pal2(GDP),
                   weight = 2,
                   opacity = 1,
                   color = "white",
@@ -131,10 +132,104 @@ function(input, output, session) {
                     style = list("font-weight" = "normal", padding = "3px 8px"),
                     textsize = "15px",
                     direction = "auto")) %>%
-      addLegend(pal = pal, values = ~GDP, opacity = 0.7, title = NULL,
+      addLegend(pal = pal2, values = ~GDP, opacity = 0.7, title = NULL,
                 position = "bottomright")
     
   })
+  
+  lats <- -90:90
+  lons <- -180:180
+  
+  output$worldmapSup <- renderLeaflet({
+    
+    leaflet(geo) %>%
+      addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
+      setView(lng = 0, lat = 0, zoom = 2) %>%
+      addPolygons(fillColor = ~pal3(Support),
+                  weight = 2,
+                  opacity = 1,
+                  color = "white",
+                  dashArray = "3",
+                  fillOpacity = 0.7,
+                  highlightOptions = highlightOptions(
+                    weight = 5,
+                    color = "white",
+                    dashArray = "",
+                    fillOpacity = 0.7,
+                    bringToFront = TRUE),
+                  label = labels3,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto")) %>%
+      addLegend(pal = pal3, values = ~Support, opacity = 0.7, title = NULL,
+                position = "bottomright")
+    
+    
+  })
+  
+  lats <- -90:90
+  lons <- -180:180
+  
+  output$worldmapLE <- renderLeaflet({
+    
+    leaflet(geo) %>%
+      addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
+      setView(lng = 0, lat = 0, zoom = 2) %>%
+      addPolygons(fillColor = ~pal4(LE),
+                  weight = 2,
+                  opacity = 1,
+                  color = "white",
+                  dashArray = "3",
+                  fillOpacity = 0.7,
+                  highlightOptions = highlightOptions(
+                    weight = 5,
+                    color = "white",
+                    dashArray = "",
+                    fillOpacity = 0.7,
+                    bringToFront = TRUE),
+                  label = labels4,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto")) %>%
+      addLegend(pal = pal4, values = ~LE, opacity = 0.7, title = NULL,
+                position = "bottomright")
+    
+    
+  })
+  
+  lats <- -90:90
+  lons <- -180:180
+  
+  output$worldmapFree <- renderLeaflet({
+    
+    leaflet(geo) %>%
+      addProviderTiles(provider = providers$Esri.WorldStreetMap) %>%
+      setView(lng = 0, lat = 0, zoom = 2) %>%
+      addPolygons(fillColor = ~pal5(Freedom),
+                  weight = 2,
+                  opacity = 1,
+                  color = "white",
+                  dashArray = "3",
+                  fillOpacity = 0.7,
+                  highlightOptions = highlightOptions(
+                    weight = 5,
+                    color = "white",
+                    dashArray = "",
+                    fillOpacity = 0.7,
+                    bringToFront = TRUE),
+                  label = labels5,
+                  labelOptions = labelOptions(
+                    style = list("font-weight" = "normal", padding = "3px 8px"),
+                    textsize = "15px",
+                    direction = "auto")) %>%
+      addLegend(pal = pal5, values = ~Freedom, opacity = 0.7, title = NULL,
+                position = "bottomright")
+    
+    
+  })
+  
   
   output$WWRegressionPlot <- renderPlot({
     regDATA %>%

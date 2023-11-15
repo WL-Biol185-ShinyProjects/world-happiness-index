@@ -6,8 +6,12 @@ library(leaflet)
 library(ggplot2)
 library(DT)
 library(shinyWidgets)
+library(geojsonio)
+library(RColorBrewer)
 
 world <- read.csv("world-happiness-report.csv")
+
+geo <- geojson_read("countries.geo.json", what = "sp")
 
 whrDATA <- world %>%
   select(1:7) %>%
@@ -35,7 +39,7 @@ hap[84, 1] <- "United States of America"
 
 geo@data <- left_join(geo@data, hap, by = c("name" = "Country"))
 
-pal <- colorNumeric("Set1", domain = c(0, 10))
+pal1 <- colorNumeric("Set1", domain = c(0, 10))
 
 labels1 <- sprintf(
   "<strong>%s</strong><br/>%s = Happiness", geo@data$name, geo@data$Happiness) %>% 
@@ -51,11 +55,60 @@ gdp[84, 1] <- "United States of America"
 
 geo@data <- left_join(geo@data, gdp, by = c("name" = "Country"))
 
-pal <- colorNumeric("Set3", domain = c(0, 12))
+pal2 <- colorNumeric("Accent", domain = c(0, 12))
 
 labels2 <- sprintf(
   "<strong>%s</strong><br/>%s = GDP", geo@data$name, geo@data$GDP) %>% 
   lapply(htmltools::HTML)
+
+supp <- whr2020 %>%
+  select(1, 5)
+
+supp[61, 1] <- "Macedonia"
+supp[68, 1] <- "Republic of Serbia"
+supp[76, 1] <- "United Republic of Tanzania"
+supp[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, supp, by = c("name" = "Country"))
+
+pal3 <- colorNumeric("Paired", domain = c(0, 1))
+
+labels3 <- sprintf(
+  "<strong>%s</strong><br/>%s = Support", geo@data$name, geo@data$Support) %>% 
+  lapply(htmltools::HTML)
+
+le <- whr2020 %>%
+  select(1, 6)
+
+le[61, 1] <- "Macedonia"
+le[68, 1] <- "Republic of Serbia"
+le[76, 1] <- "United Republic of Tanzania"
+le[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, le, by = c("name" = "Country"))
+
+pal4 <- colorNumeric("Set2", domain = c(0, 100))
+
+labels4 <- sprintf(
+  "<strong>%s</strong><br/>%s = LE", geo@data$name, geo@data$LE) %>% 
+  lapply(htmltools::HTML)
+
+free <- whr2020 %>%
+  select(1, 7)
+
+free[61, 1] <- "Macedonia"
+free[68, 1] <- "Republic of Serbia"
+free[76, 1] <- "United Republic of Tanzania"
+free[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, free, by = c("name" = "Country"))
+
+pal5 <- colorNumeric("Spectral", domain = c(0, 1))
+
+labels5 <- sprintf(
+  "<strong>%s</strong><br/>%s = Freedom", geo@data$name, geo@data$Freedom) %>% 
+  lapply(htmltools::HTML)
+
 
 regDATA <- read.csv("overtime.csv") %>%
   pivot_longer(cols = !(c(Year)),
@@ -221,10 +274,23 @@ navbarPage("NavBar",
                                mainPanel(p("Description")),
                                leafletOutput("worldmapGDP")),
                       
+                      tabPanel("Socal Support Cloropleth",
+                               titlePanel("Social Support Choropleth Map"),
+                               setBackgroundColor("aliceblue"),
+                               mainPanel(p("Description")),
+                               leafletOutput("worldmapSup")),
                       
-                      tabPanel("Socal Support Cloropleth"),
-                      tabPanel("Life Expectancy Chloropleth"),
-                      tabPanel("Freedom Chloropleth")),
+                      tabPanel("Life Expectancy Chloropleth",
+                               titlePanel("Life Expectancy Choropleth Map"),
+                               setBackgroundColor("aliceblue"),
+                               mainPanel(p("Description")),
+                               leafletOutput("worldmapLE")),
+                      
+                      tabPanel("Freedom Chloropleth",
+                               titlePanel("Freedom Choropleth Map"),
+                               setBackgroundColor("aliceblue"),
+                               mainPanel(p("Description")),
+                               leafletOutput("worldmapFree"))),
            
            
            tabPanel("Regression Plot",
