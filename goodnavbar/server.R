@@ -21,7 +21,8 @@ whrDATA <- world %>%
          GDP = Log.GDP.per.capita,
          Support = Social.support,
          LE = Healthy.life.expectancy.at.birth,
-         Freedom = Freedom.to.make.life.choices)
+         Freedom = Freedom.to.make.life.choices) %>%
+  arrange(Year, Country, Happiness, GDP, Support, LE, Freedom)
 
 whr2020 <- whrDATA %>%
   filter(Year == 2020) %>%
