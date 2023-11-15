@@ -9,6 +9,167 @@ library(DT)
 library(shinyWidgets)
 library(RColorBrewer)
 
+world <- read.csv("world-happiness-report.csv")
+
+geo <- geojson_read("countries.geo.json", what = "sp")
+
+whrDATA <- world %>%
+  select(1:7) %>%
+  rename(Country = Country.name,
+         Year = year,
+         Happiness = Life.Ladder,
+         GDP = Log.GDP.per.capita,
+         Support = Social.support,
+         LE = Healthy.life.expectancy.at.birth,
+         Freedom = Freedom.to.make.life.choices)
+
+whr2020 <- whrDATA %>%
+  filter(Year == 2020) %>%
+  filter(!is.na(GDP)) %>%
+  filter(!is.na(LE)) %>%
+  filter(!is.na(Freedom))
+
+hap <- whr2020 %>%
+  select(1, 3)
+
+hap[61, 1] <- "Macedonia"
+hap[68, 1] <- "Republic of Serbia"
+hap[76, 1] <- "United Republic of Tanzania"
+hap[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, hap, by = c("name" = "Country"))
+
+pal1 <- colorNumeric("Set1", domain = c(0, 10))
+
+labels1 <- sprintf(
+  "<strong>%s</strong><br/>%s = Happiness", geo@data$name, geo@data$Happiness) %>% 
+  lapply(htmltools::HTML)
+
+gdp <- whr2020 %>%
+  select(1, 4)
+
+gdp[61, 1] <- "Macedonia"
+gdp[68, 1] <- "Republic of Serbia"
+gdp[76, 1] <- "United Republic of Tanzania"
+gdp[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, gdp, by = c("name" = "Country"))
+
+pal2 <- colorNumeric("Accent", domain = c(0, 12))
+
+labels2 <- sprintf(
+  "<strong>%s</strong><br/>%s = GDP", geo@data$name, geo@data$GDP) %>% 
+  lapply(htmltools::HTML)
+
+supp <- whr2020 %>%
+  select(1, 5)
+
+supp[61, 1] <- "Macedonia"
+supp[68, 1] <- "Republic of Serbia"
+supp[76, 1] <- "United Republic of Tanzania"
+supp[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, supp, by = c("name" = "Country"))
+
+pal3 <- colorNumeric("Paired", domain = c(0, 1))
+
+labels3 <- sprintf(
+  "<strong>%s</strong><br/>%s = Support", geo@data$name, geo@data$Support) %>% 
+  lapply(htmltools::HTML)
+
+le <- whr2020 %>%
+  select(1, 6)
+
+le[61, 1] <- "Macedonia"
+le[68, 1] <- "Republic of Serbia"
+le[76, 1] <- "United Republic of Tanzania"
+le[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, le, by = c("name" = "Country"))
+
+pal4 <- colorNumeric("Set2", domain = c(0, 100))
+
+labels4 <- sprintf(
+  "<strong>%s</strong><br/>%s = LE", geo@data$name, geo@data$LE) %>% 
+  lapply(htmltools::HTML)
+
+free <- whr2020 %>%
+  select(1, 7)
+
+free[61, 1] <- "Macedonia"
+free[68, 1] <- "Republic of Serbia"
+free[76, 1] <- "United Republic of Tanzania"
+free[84, 1] <- "United States of America"
+
+geo@data <- left_join(geo@data, free, by = c("name" = "Country"))
+
+pal5 <- colorNumeric("Spectral", domain = c(0, 1))
+
+labels5 <- sprintf(
+  "<strong>%s</strong><br/>%s = Freedom", geo@data$name, geo@data$Freedom) %>% 
+  lapply(htmltools::HTML)
+
+
+regDATA <- read.csv("overtime.csv") %>%
+  pivot_longer(cols = !(c(Year)),
+               names_to = 'Predictor',
+               values_to = 'RegCoef') %>% 
+  arrange(Year, Predictor, RegCoef)
+
+lnglat <- read.csv("country-capital-lat-long-population.csv") %>%
+  select(Country, Longitude, Latitude)
+
+lnglat[25, 1] <- "Bolivia"
+lnglat[54, 1] <- "Ivory Coast"
+lnglat[59, 1] <- "Czech Republic"
+lnglat[116, 1] <- "Laos"
+lnglat[169, 1] <- "South Korea"
+lnglat[170, 1] <- "Moldova"
+lnglat[173, 1] <- "Russia"
+lnglat[206, 1] <- "North Macedonia"
+lnglat[222, 1] <- "Tanzania"
+lnglat[223, 1] <- "United States"
+
+llworld <- left_join(whr2020, lnglat)
+
+flag <- read.csv("flags_iso.csv")
+
+flag <- flag %>%
+  select(1, 4)
+
+flag[21, 1] <- "Bolivia"
+flag[46, 1] <- "Czech Republic"
+flag[50, 1] <- "Dominican Republic"
+flag[42, 1] <- "Ivory Coast"
+flag[92, 1] <- "South Korea"
+flag[95, 1] <- "Laos"
+flag[115, 1] <- "Moldova"
+flag[125, 1] <- "Netherlands"
+flag[139, 1] <- "Philippines"
+flag[143, 1] <- "North Macedonia"
+flag[145, 1] <- "Russia"
+flag[173, 1] <- "Tanzania"
+flag[185, 1] <- "United Arab Emirates"
+flag[186, 1] <- "United Kingdom"
+flag[187, 1] <- "United States"
+
+
+worldflag <- left_join(llworld, flag)
+
+llworld <- worldflag
+
+newcol <- paste0("<p><b><em>Country</b></em>", "=", llworld$Country,
+                 "<p><b><em>Happiness</b></em>", "=", llworld$Happiness,
+                 "<p><b><em>GDP</b></em>", "=", llworld$GDP,
+                 "<p><b><em>Support</b></em>", "=", llworld$Support,
+                 "<p><b><em>LE</b></em>", "=", llworld$LE,
+                 "<p><b><em>Freedom</b></em>", "=", llworld$Freedom,
+                 '<p><img src="', llworld$URL, '"></img></p>')
+
+newcol <- as.data.frame(newcol)
+
+llworld2 <- bind_cols(llworld, newcol)
+
 
 function(input, output, session) {
 
