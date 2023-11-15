@@ -28,8 +28,6 @@ whr2020 <- whrDATA %>%
   filter(!is.na(GDP)) %>%
   filter(!is.na(LE)) %>%
   filter(!is.na(Freedom))
-<<<<<<< HEAD
-=======
 
 hap <- whr2020 %>%
   select(1, 3)
@@ -171,8 +169,6 @@ newcol <- paste0("<p><b><em>Country</b></em>", "=", llworld$Country,
 newcol <- as.data.frame(newcol)
 
 llworld2 <- bind_cols(llworld, newcol)
-
->>>>>>> 550ad2c28242097a507f05cc4f70fd1d5e2d58c4
 
 function(input, output, session) {
 
