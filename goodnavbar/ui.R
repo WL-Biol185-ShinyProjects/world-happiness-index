@@ -179,17 +179,17 @@ navbarPage("NavBar",
                     mainPanel(p("This app explores the happiness index data across the world and throughout time (2005-2020) published by the World Gallup Poll. The data features different countries along with their happiness levels as predicted by 4 different variables. These 4 variables include: GDP, Social Support, Life Expectancy, and Freedom.
               GDP data was collected from a variety of economic sources, Life Expectancy data was collected from the World Health Organization (WHO), and all other values were self-reported and used to compile national averages."),
                               
-                              p(strong("Happiness"), "is measured on a scale of 0-10, where a 0 represents the worst possible life for you, and a 10 represents the best possible life for you."),
+                              p(strong("Happiness"), "is measured on a scale of 0-10, where 0 represents the worst possible life for you, and 10 represents the best possible life for you."),
                               
                               p(strong("GDP"), "stands for Gross Domestic Product. It measures the monetary value of a country's goods and services. Wealthier countries tend to exhibit higher GDP values."),
                               
-                              p(strong("Social Support"), "represents a person's percieved levels of social support. Social Support is measured on a scale from 0-1, where a 0 represents the feeling of not having anyone to count on during times of trouble, and a 1 represents the sense of having this support."),
+                              p(strong("Social Support"), "represents a person's percieved levels of social support. Social Support is measured on a scale of 0-1, where 0 represents the feeling of not having anyone to count on during times of trouble, and 1 represents the sense of having this support."),
                               
                               p(strong("Life Expectancy (LE)"), "is the measure of the average life span of a country's population (in years)."),
                               
                               p(strong("Freedom"), "represents the perception of one's ability to make autonomous life choices. It is measured on a scale of 0-1, where a 0 represents dissatisfaction with one's freedom to make life choices, and a 1 represents satisfaction with one's autonomy."),
-                              titlePanel("Plot of Happiness by Country Over Time"), 
-                              p("This is a bar graph demonstrating the happiness index value of each country. You may choose a specific year to evaluate the happiness index scores for countries in that year. By choosing different years, you may then visualize the trends of happiness scores as time changes."),
+                              titlePanel("How have worldwide Happiness values changed over the years, since 2005?"), 
+                              p("This is a bar graph demonstrating the happiness index value of each country. You may choose a specific year to evaluate the happiness index scores for countries in that year. By choosing different years, you may then visualize the trends of happiness scores as time changes. Note that not all countries have data for each year included in the study."),
                               selectInput("selectYear", 
                                           "Year", 
                                           choices = unique(whrDATA$Year)),
@@ -200,8 +200,8 @@ navbarPage("NavBar",
            tabPanel("Map",
                     titlePanel("Map of World Happiness Indicies in 2020"),
                     fluidPage(
-                      p("This map shows different countries around the world. 
-      The pop-ups, which are placed at the capital city of each country, feature 7 different pieces of information per country: 
+                      p("This map displays a synopsis of each country's data. Data from 2020 was used as this was the most recent year included in this study.
+      The pop-ups, placed at the capital city of each country, feature 7 different pieces of information: 
       the country name, 
       its happiness index, 
       GDP, 
@@ -216,12 +216,14 @@ navbarPage("NavBar",
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     setBackgroundColor("aliceblue"),
-                    mainPanel(p("This table depicts the raw data table of the World Happiness Index which includes the country name, year, happiness score, and all the happiness predictors. You can search for a certain country, year, or value")),
+                    mainPanel(p("This table depicts the complete dataset used for our project. To compile this dataset, the raw World Happiness Index data was manipulated 
+                                to exclude variable not considered in our research project. In this interactive table, you can search for a particular country, year, or value and also rearrange the data based on variable of interest.
+                                You also have the option to download this dataset for further personal analysis.")),
                     basicPage(
                       DT::dataTableOutput("mytable"))),
            
            
-           tabPanel("Happiness vs Indicators Plots",
+           tabPanel("What is the relationship between individual predicators and Happiness in a given year?",
                     titlePanel("Happiness vs Different Indicators"),
                     setBackgroundColor("aliceblue"),
                     sidebarLayout(
@@ -233,9 +235,9 @@ navbarPage("NavBar",
                         selectInput("selectX", "X:",
                                     choices=colnames(select(whrDATA, 4:7)))),
                       mainPanel (
-                        p("Please explore this interactive graph to discover the relationship between a country's happiness score and the different predictors. 
-             You can choose the specific indicator (x-axis) to see how this impacts a country's happiness level as well as choose a specific year of interest. 
-             Drag a box over each point(s) to display the corresponding data.", style = 'times'),
+                        p("This interactive graph explores the relationship between a country's Happiness score and the different predictors. 
+             You can choose the specific indicator (x-axis) to see how it compares to Happiness values (y-axis). You may also select a specific year to see how the predictor related to Happiness in that year. 
+             Drag a box over each point(s) to display the specific country represeted by the point, as well as its corresponding data.", style = 'times'),
                         
                         plotOutput("HappinessvsGDP",
                                    brush = brushOpts(
@@ -246,7 +248,7 @@ navbarPage("NavBar",
            
            tabPanel("Happiness over Time",
                     setBackgroundColor("aliceblue"),
-                    titlePanel("Happiness Over Time By Country"),
+                    titlePanel("How have Happiness scores changed for each country over time?"),
                     sidebarLayout(
                       sidebarPanel(
                         selectInput("selectcountry", "Country:",
@@ -255,53 +257,58 @@ navbarPage("NavBar",
                         helpText("Choose a Country"),
                       ),
                       mainPanel (
-                        p("Please choose a country from the dropdown to visualize how its happiness score fluctuates over time.", 
+                        p("This line graph demonstrates how Happiness values (y-axis) have changed over time, in years (x-axis), for an individual country. Please choose a country from the dropdown to visualize how its Happiness score fluctuates over time.", 
                           style = 'times'),
                         plotOutput("HappinessvsTime")))),
            
-           navbarMenu("Chloropleth Graphs",
+           navbarMenu("Choropleth Maps",
                       
                       tabPanel("Happiness Choropleth",
                                titlePanel("Happiness Choropleth Map"),
                                setBackgroundColor("aliceblue"),
-                               mainPanel(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
-                                  of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
-                                  to its correspoding happiness number")),
+                               mainPanel(p("This map utilizes color to display and compare the Happiness scores across countries. As a reminder, Happiness is measured on a scale of 0-10, where 0 represents the worst possible life and a 10 represents the best possible life. 
+                                           The key on the bottom right shows the Happiness score associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Happiness value.")),
                                leafletOutput("worldmapHap")),
     
-                      tabPanel("GDP Chloropleth",
+                      tabPanel("GDP Choropleth",
                                titlePanel("GDP Choropleth Map"),
                                setBackgroundColor("aliceblue"),
-                               mainPanel(p("Description")),
+                               mainPanel(p("This map utilizes color to display and compare GDP values across countries. GDP measures the monetary value of a country's goods and services. 
+                                           The key on the bottom right shows the GDP values associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact GDP value.")),
                                leafletOutput("worldmapGDP")),
                       
-                      tabPanel("Socal Support Cloropleth",
+                      tabPanel("Socal Support Choropleth",
                                titlePanel("Social Support Choropleth Map"),
                                setBackgroundColor("aliceblue"),
-                               mainPanel(p("Description")),
+                               mainPanel(p("This map utilizes color to display and compare Support scores across countries. Support represents perceived levels of social support. It is measured on a scale from 0-1, where 0 represents the feeling
+                                           of not having anyone to count on during times of trouble, and 1 represents the sense of having this support. 
+                                           The key on the bottom right shows the Support values associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Support score.")),
                                leafletOutput("worldmapSup")),
                       
-                      tabPanel("Life Expectancy Chloropleth",
+                      tabPanel("Life Expectancy Choropleth",
                                titlePanel("Life Expectancy Choropleth Map"),
                                setBackgroundColor("aliceblue"),
-                               mainPanel(p("Description")),
+                               mainPanel(p("This map utilizes color to display and compare Life Expectancy (LE) values across countries. LE is the measure of the average life span of a country's population (in years). 
+                                           The key on the bottom right shows the LE values associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact LE value.")),
                                leafletOutput("worldmapLE")),
                       
-                      tabPanel("Freedom Chloropleth",
+                      tabPanel("Freedom Choropleth",
                                titlePanel("Freedom Choropleth Map"),
                                setBackgroundColor("aliceblue"),
-                               mainPanel(p("Description")),
+                               mainPanel(p("This map utilizes color to display and compare Freedom scores across countries. Freedom represents the perception of one's ability to make autonomous life choices. It is measured on a scale of 0-1,
+                                           where 0 represents dissatisfaction with one's freedom to make life choices and 1 represents satisfaction with one's autonomy. 
+                                           The key on the bottom right shows the Freedom scores associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Freedom score.")),
                                leafletOutput("worldmapFree"))),
            
            
            tabPanel("Regression Plot",
-                    titlePanel("Strength of Variables in Predicting Happiness Over Time"),
+                    titlePanel("How does the strength of each variable in predicting Happiness change over time?"),
                     setBackgroundColor("aliceblue"),
                     mainPanel(p("This line graph presents worldwide regression data over time. 
                                 To attain this data, multiple regressions were run between Happiness scores and predictor variables (GPD, LE, Freedom, Support) across all countries, for each year included in the study.
-                                Regression coefficients were then standardized to account for differences in measurement scale of the predictor variables.
+                                Regression coefficients were then standardized to account for differences in scales of measurement of the predictor variables.
                                 The resulting regression coefficients indicate how strongly each of the predictor variables correspond with the Happiness outcome.
-                                Larger regression coefficients indicate that the preictor variable had a greater influence on the Happiness score.
+                                Larger regression coefficients indicate that the predictor variable had a greater influence on the Happiness score.
                                 Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
                               plotOutput("WWRegressionPlot"))))
 
