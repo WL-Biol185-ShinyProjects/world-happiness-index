@@ -198,6 +198,14 @@ function(input, output, session) {
     whrDATA
   
     })
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      "whrDATA.csv"
+    },
+    content = function(file) {
+      write.csv(whrDATA, file)
+    }
+  )
   
   output$HappinessvsGDP <- renderPlot ({
     if (input$selectX == "GDP") {

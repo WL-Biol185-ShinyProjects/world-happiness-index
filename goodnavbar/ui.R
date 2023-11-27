@@ -24,6 +24,8 @@ whrDATA <- world %>%
          Freedom = Freedom.to.make.life.choices) %>%
   arrange(Year, Country, Happiness, GDP, Support, LE, Freedom)
 
+write.csv(whrDATA, "whrDATA.csv", row.names = FALSE)
+
 whr2020 <- whrDATA %>%
   filter(Year == 2020) %>%
   filter(!is.na(GDP)) %>%
@@ -195,8 +197,6 @@ navbarPage("World Happiness Report",
                                           choices = unique(whrDATA$Year)),
                               plotOutput("HappinessvsCountryPlot"))),
            
-           
-           
            tabPanel("Map",
                     titlePanel("Map of World Happiness Indicies in 2020"),
                     fluidPage(
@@ -216,6 +216,7 @@ navbarPage("World Happiness Report",
            tabPanel("Raw Data Table",
                     titlePanel("World Happiness Index Raw Data"),
                     setBackgroundColor("aliceblue"),
+                    downloadButton("downloadData", "Download"),
                     mainPanel(p("This table depicts the complete dataset used for our project. To compile this dataset, the raw World Happiness Index data was manipulated 
                                 to exclude variable not considered in our research project. In this interactive table, you can search for a particular country, year, or value and also rearrange the data based on variable of interest.
                                 You also have the option to download this dataset for further personal analysis.")),
@@ -268,10 +269,6 @@ navbarPage("World Happiness Report",
                                setBackgroundColor("aliceblue"),
                                mainPanel(p("This map utilizes color to display and compare the Happiness scores across countries. As a reminder, Happiness is measured on a scale of 0-10, where 0 represents the worst possible life and a 10 represents the best possible life. 
                                            The key on the bottom right shows the Happiness score associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Happiness value.")),
-                               fluidPage(p("This map utilizes color to display and compare the happiness scores for world countries. The darker the shade 
-                                  of the color equates to a higher happiness score. Use the key on the side to compare the shade of color
-                                  to its correspoding happiness number")),
-                               
                                leafletOutput("worldmapHap")),
     
                       tabPanel("GDP Choropleth",
