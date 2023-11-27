@@ -195,22 +195,14 @@ navbarPage("World Happiness Report",
                               selectInput("selectYear", 
                                           "Year", 
                                           choices = unique(whrDATA$Year)),
-                              plotOutput("HappinessvsCountryPlot"))),
+                              plotOutput("HappinessvsCountryPlot", width = ("250vh")))),
+           
            
            tabPanel("Map",
                     titlePanel("Map of World Happiness Indicies in 2020"),
                     fluidPage(
-                      p("This map displays a synopsis of each country's data. Data from 2020 was used as this was the most recent year included in this study.
-      The pop-ups, placed at the capital city of each country, feature 7 different pieces of information: 
-      the country name, 
-      its happiness index, 
-      GDP, 
-      perception of social support, 
-      life expectency, 
-      perception of freedom, 
-      and lastly, the country's flag."),
-           
-                      leafletOutput("worldMap", height = ("100vh")))),
+                      p("This map displays a synopsis of each country's data. Data from 2020 was used as this was the most recent year included in this study. The pop-ups, placed at the capital city of each country, feature 7 different pieces of information: the country name, its happiness index, GDP, perception of social support, life expectency, perception of freedom, and lastly, the country's flag."),
+                      leafletOutput("worldMap", height = ("80vh")))),
            
            
            tabPanel("Raw Data Table",
@@ -260,7 +252,9 @@ navbarPage("World Happiness Report",
                       mainPanel (
                         p("This line graph demonstrates how Happiness values (y-axis) have changed over time, in years (x-axis), for an individual country. Please choose a country from the dropdown to visualize how its Happiness score fluctuates over time.", 
                           style = 'times'),
-                        plotOutput("HappinessvsTime")))),
+                        plotOutput("HappinessvsTime", height = ("80vh"))))),
+           
+           
            
            navbarMenu("Choropleth Maps",
                       
@@ -269,14 +263,14 @@ navbarPage("World Happiness Report",
                                setBackgroundColor("aliceblue"),
                                mainPanel(p("This map utilizes color to display and compare the Happiness scores across countries. As a reminder, Happiness is measured on a scale of 0-10, where 0 represents the worst possible life and a 10 represents the best possible life. 
                                            The key on the bottom right shows the Happiness score associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Happiness value.")),
-                               leafletOutput("worldmapHap")),
+                               leafletOutput("worldmapHap", height = ("80vh"))),
     
                       tabPanel("GDP Choropleth",
                                titlePanel("GDP Choropleth Map"),
                                setBackgroundColor("aliceblue"),
                                mainPanel(p("This map utilizes color to display and compare GDP values across countries. GDP measures the monetary value of a country's goods and services. 
                                            The key on the bottom right shows the GDP values associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact GDP value.")),
-                               leafletOutput("worldmapGDP")),
+                               leafletOutput("worldmapGDP", height = ("80vh"))),
                       
                       tabPanel("Socal Support Choropleth",
                                titlePanel("Social Support Choropleth Map"),
@@ -284,14 +278,14 @@ navbarPage("World Happiness Report",
                                mainPanel(p("This map utilizes color to display and compare Support scores across countries. Support represents perceived levels of social support. It is measured on a scale from 0-1, where 0 represents the feeling
                                            of not having anyone to count on during times of trouble, and 1 represents the sense of having this support. 
                                            The key on the bottom right shows the Support values associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Support score.")),
-                               leafletOutput("worldmapSup")),
+                               leafletOutput("worldmapSup", height = ("80vh"))),
                       
                       tabPanel("Life Expectancy Choropleth",
                                titlePanel("Life Expectancy Choropleth Map"),
                                setBackgroundColor("aliceblue"),
                                mainPanel(p("This map utilizes color to display and compare Life Expectancy (LE) values across countries. LE is the measure of the average life span of a country's population (in years). 
                                            The key on the bottom right shows the LE values associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact LE value.")),
-                               leafletOutput("worldmapLE")),
+                               leafletOutput("worldmapLE", height = ("80vh"))),
                       
                       tabPanel("Freedom Choropleth",
                                titlePanel("Freedom Choropleth Map"),
@@ -299,7 +293,7 @@ navbarPage("World Happiness Report",
                                mainPanel(p("This map utilizes color to display and compare Freedom scores across countries. Freedom represents the perception of one's ability to make autonomous life choices. It is measured on a scale of 0-1,
                                            where 0 represents dissatisfaction with one's freedom to make life choices and 1 represents satisfaction with one's autonomy. 
                                            The key on the bottom right shows the Freedom scores associated with each color. Countries that have missing data will appear gray. Hover over each country to see its exact Freedom score.")),
-                               leafletOutput("worldmapFree"))),
+                               leafletOutput("worldmapFree", height = ("80vh")))),
            
            
            tabPanel("Regression Plot",
@@ -311,7 +305,14 @@ navbarPage("World Happiness Report",
                                 The resulting regression coefficients indicate how strongly each of the predictor variables correspond with the Happiness outcome.
                                 Larger regression coefficients indicate that the predictor variable had a greater influence on the Happiness score.
                                 Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
-                              plotOutput("WWRegressionPlot"))))
+                              plotOutput("WWRegressionPlot", height = ("80vh")))),
+           
+           
+           tabPanel("About",
+                    titlePanel("The Origins of our Project!"),
+                    setBackgroundColor("aliceblue"),
+                    mainPanel(p("This is where the text will go."),
+                              imageOutput("this is where the picture will go."))))
 
                       
            
