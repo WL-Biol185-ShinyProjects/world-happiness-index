@@ -215,8 +215,8 @@ navbarPage("World Happiness Report",
                       DT::dataTableOutput("mytable"))),
            
            
-           tabPanel("What is the relationship between individual predicators and Happiness in a given year?",
-                    titlePanel("Happiness vs Different Indicators"),
+           tabPanel("Happiness vs Indicators",
+                    titlePanel("What is the relationship between individual predicators and Happiness in a given year?"),
                     setBackgroundColor("aliceblue"),
                     sidebarLayout(
                       sidebarPanel(
