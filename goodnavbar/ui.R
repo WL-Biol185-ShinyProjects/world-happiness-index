@@ -303,7 +303,13 @@ navbarPage("World Happiness Report",
                                 The resulting regression coefficients indicate how strongly each of the predictor variables correspond with the Happiness outcome.
                                 Larger regression coefficients indicate that the predictor variable had a greater influence on the Happiness score.
                                 Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
-                              plotOutput("WWRegressionPlot", height = ("80vh")))))
+                              plotOutput("WWRegressionPlot", height = ("80vh")))),
+           
+           tabPanel("About",
+                    titlePanel("The Origins of our Project!"),
+                    setBackgroundColor("aliceblue"),
+                    mainPanel(p("This is where the text will go."),
+                              imageOutput("this is where the picture will go."))))
 
                       
            
