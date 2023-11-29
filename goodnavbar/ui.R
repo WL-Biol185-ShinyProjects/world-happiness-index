@@ -311,8 +311,12 @@ navbarPage("World Happiness Report",
            tabPanel("About",
                     titlePanel("The Origins of our Project!"),
                     setBackgroundColor("aliceblue"),
-                    mainPanel(p(strong("Thank you for exploring our app! We hope you discovered more about the World Happiness Index and the factors that influence it. We chose this topic because we thought it would be interesting to analyze happiness trends across countries and time and understand why some countries tend to be happier than others. We hope to grow in our happiness and spread some positivity!")),
-                              imageOutput("this is where the picture will go."))))
+                    mainPanel(p(strong("Thank you for exploring our app! We hope you discovered more about the World Happiness Index and the factors that influence it. We chose this topic because we thought it would be interesting to analyze happiness trends across countries and time along with understanding why some countries tend to be happier than others. We hope to grow in our happiness and spread some positivity!")),
+                              imageOutput("this is where the picture will go."),
+                              p("The original data came from the World Happiness Report:
+                                “World Happiness Report .” Home | The World Happiness Report, Gallup World Poll, worldhappiness.report/."))))
+                             
+                                
 
                       
            
