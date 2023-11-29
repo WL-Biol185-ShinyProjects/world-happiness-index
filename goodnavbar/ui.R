@@ -323,9 +323,6 @@ navbarPage("World Happiness Report",
                       
            
            
-#img(src = "FILE-NAME.jpg"),
-
-
 
 
 
