@@ -407,7 +407,6 @@ function(input, output, session) {
       geom_point(aes(color = Predictor)) +
       labs(title = "Correlation of Predictors and Happiness Over Time", x = "Year", y = "Regression Coefficient")
   })
-  
   }
   
 
