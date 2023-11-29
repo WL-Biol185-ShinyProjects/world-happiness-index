@@ -317,22 +317,6 @@ navbarPage("World Happiness Report",
                       
            
            
-           
-                      
-           
-
-         
-
-
-
-
-
-
-
-
-
-
-
 
 
 
