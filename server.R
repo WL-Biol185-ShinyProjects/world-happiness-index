@@ -237,7 +237,6 @@ function(input, output, session) {
     brush <- input$plot_brush
     df <- brushedPoints(whrDATA, brush) %>%
       filter(Year == input$selectyear)
-    df[c("Country", "Year", "Happiness", input$selectX)]
     })
   
   output$HappinessvsTime <- renderPlot ({
