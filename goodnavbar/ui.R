@@ -233,6 +233,7 @@ navbarPage("World Happiness Report",
              Drag a box over each point(s) to display the specific country represeted by the point, as well as its corresponding data.", style = 'times'),
                         
                         plotOutput("HappinessvsGDP",
+                                   height = ("60vh"),
                                    brush = brushOpts(
                                      id = "plot_brush",
                                    )), 
