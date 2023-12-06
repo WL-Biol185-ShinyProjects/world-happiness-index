@@ -221,8 +221,11 @@ navbarPage("World Happiness Report",
                     setBackgroundColor("aliceblue"),
                     sidebarLayout(
                       sidebarPanel(
-                        selectInput("selectyear", "Year:",
-                                    choices=unique(whrDATA$Year)),
+                        sliderInput("selectyear", "Year:",
+                                    min = 2005, max = 2020,
+                                    value = 1, step = 1,
+                                    animate =
+                                      animationOptions(interval = 1000, loop = TRUE)),
                         hr(),
                         helpText("Available Years within the Dataset"),
                         selectInput("selectX", "X:",

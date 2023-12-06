@@ -8,6 +8,7 @@ library(ggplot2)
 library(DT)
 library(shinyWidgets)
 library(RColorBrewer)
+library(lubridate)
 
 world <- read.csv("world-happiness-report.csv")
 
@@ -22,7 +23,8 @@ whrDATA <- world %>%
          Support = Social.support,
          LE = Healthy.life.expectancy.at.birth,
          Freedom = Freedom.to.make.life.choices) %>%
-  arrange(Year, Country, Happiness, GDP, Support, LE, Freedom)
+  arrange(Year, Country, Happiness, GDP, Support, LE, Freedom) 
+
 
 whr2020 <- whrDATA %>%
   filter(Year == 2020) %>%
