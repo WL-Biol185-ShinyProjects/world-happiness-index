@@ -252,7 +252,7 @@ navbarPage("World Happiness Report",
                     setBackgroundColor("aliceblue"),
                     sidebarLayout(
                       sidebarPanel(
-                        sliderInput("selectyear", "Year:",
+                        sliderInput("selectyear", "Year:", sep = "",
                                     min = 2005, max = 2020,
                                     value = 1, step = 1,
                                     animate =
