@@ -25,7 +25,6 @@ whrDATA <- world %>%
          Freedom = Freedom.to.make.life.choices) %>%
   arrange(Year, Country, Happiness, GDP, Support, LE, Freedom) 
 
-
 whr2020 <- whrDATA %>%
   filter(Year == 2020) %>%
   filter(!is.na(GDP)) %>%
@@ -156,7 +155,6 @@ flag[185, 1] <- "United Arab Emirates"
 flag[186, 1] <- "United Kingdom"
 flag[187, 1] <- "United States"
 
-
 worldflag <- left_join(llworld, flag)
 
 llworld <- worldflag
@@ -172,6 +170,7 @@ newcol <- paste0("<p><b><em>Country</b></em>", "=", llworld$Country,
 newcol <- as.data.frame(newcol)
 
 llworld2 <- bind_cols(llworld, newcol)
+
 
 function(input, output, session) {
 
