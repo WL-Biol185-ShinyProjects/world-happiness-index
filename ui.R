@@ -112,7 +112,6 @@ labels5 <- sprintf(
   "<strong>%s</strong><br/>%s = Freedom", geo@data$name, geo@data$Freedom) %>% 
   lapply(htmltools::HTML)
 
-
 regDATA <- read.csv("overtime.csv") %>%
   pivot_longer(cols = !(c(Year)),
                names_to = 'Predictor',
@@ -125,7 +124,6 @@ regASIA <- read.csv("asia.csv") %>%
                names_to = 'Predictor',
                values_to = 'RegCoef') %>% 
   arrange(Year, Predictor, RegCoef)
-
 
 
 regEUROPE <- read.csv("europe.csv") %>%
@@ -223,9 +221,11 @@ navbarPage("World Happiness Report",
                               p(strong("Freedom"), "represents the perception of one's ability to make autonomous life choices. It is measured on a scale of 0-1, where a 0 represents dissatisfaction with one's freedom to make life choices, and a 1 represents satisfaction with one's autonomy."),
                               titlePanel("How have worldwide Happiness values changed over the years, since 2005?"), 
                               p("This is a bar graph demonstrating the happiness index value of each country. You may choose a specific year to evaluate the happiness index scores for countries in that year. By choosing different years, you may then visualize the trends of happiness scores as time changes. Note that not all countries have data for each year included in the study."),
-                              selectInput("selectYear", 
-                                          "Year", 
-                                          choices = unique(whrDATA$Year)),
+                              sliderInput("selectYear", "Year:", sep = "",
+                                          min = 2005, max = 2020,
+                                          value = 2005, step = 1,
+                                          animate =
+                                            animationOptions(interval = 1500, loop = TRUE)),
                               plotOutput("HappinessvsCountryPlot", width = ("250vh")))),
            
            
@@ -254,9 +254,9 @@ navbarPage("World Happiness Report",
                       sidebarPanel(
                         sliderInput("selectyear", "Year:", sep = "",
                                     min = 2005, max = 2020,
-                                    value = 1, step = 1,
+                                    value = 2005, step = 1,
                                     animate =
-                                      animationOptions(interval = 1000, loop = TRUE)),
+                                      animationOptions(interval = 3000, loop = TRUE)),
                         hr(),
                         helpText("Available Years within the Dataset"),
                         selectInput("selectX", "X:",
