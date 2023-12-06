@@ -237,13 +237,12 @@ function(input, output, session) {
     brush <- input$plot_brush
     df <- brushedPoints(whrDATA, brush) %>%
       filter(Year == input$selectyear)
-  
     })
   
   output$HappinessvsTime <- renderPlot ({
     whrDATA %>%
-      filter(Country == input$selectcountry) %>%
-      ggplot(aes(Year, Happiness)) + geom_line(color ="blue") + ggtitle("Happiness vs Time")
+      filter(Country %in% input$selectcountry) %>%
+      ggplot(aes(Year, Happiness)) + geom_line(aes(color = Country)) + ggtitle("Happiness vs Time")
   })
   
   lats <- -90:90

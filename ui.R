@@ -195,7 +195,7 @@ navbarPage("World Happiness Report",
                               selectInput("selectYear", 
                                           "Year", 
                                           choices = unique(whrDATA$Year)),
-                              plotOutput("HappinessvsCountryPlot", width = ("100vh")))),
+                              plotOutput("HappinessvsCountryPlot", width = ("250vh")))),
            
            
            tabPanel("Map",
@@ -245,10 +245,10 @@ navbarPage("World Happiness Report",
                     titlePanel("How have Happiness scores changed for each country over time?"),
                     sidebarLayout(
                       sidebarPanel(
-                        selectInput("selectcountry", "Country:",
+                        selectInput("selectcountry", "Choose a Country:", 
+                                    multiple = TRUE, 
                                     choices=unique(whrDATA$Country)),
                         hr(),
-                        helpText("Choose a Country"),
                       ),
                       mainPanel (
                         p("This line graph demonstrates how Happiness values (y-axis) have changed over time, in years (x-axis), for an individual country. Please choose a country from the dropdown to visualize how its Happiness score fluctuates over time.", 
@@ -315,8 +315,7 @@ navbarPage("World Happiness Report",
                     mainPanel(p(strong("Thank you for exploring our app! We hope you discovered more about the World Happiness Index and the factors that influence it. We chose this topic because we thought it would be interesting to analyze happiness trends across countries and time along with understanding why some countries tend to be happier than others. We hope to grow in our happiness and spread some positivity!")),
                               img(src = "Image.jpg", height = "500", width = "500"),
                               p(strong("Cami Fischmann, Zainab Madan, Emily Sansbury")),
-                              p("The original data came from the World Happiness Report:
-                                “World Happiness Report .” Home | The World Happiness Report, Gallup World Poll, worldhappiness.report/."))))
+                              a(href = "https://worldhappiness.report/data/", "Explore the World Happiness Report here!"))))
                              
                                 
 
