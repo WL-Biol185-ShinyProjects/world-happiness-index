@@ -119,6 +119,37 @@ regDATA <- read.csv("overtime.csv") %>%
                values_to = 'RegCoef') %>% 
   arrange(Year, Predictor, RegCoef)
 
+
+regASIA <- read.csv("asia.csv") %>%
+  pivot_longer(cols = !(c(Year)),
+               names_to = 'Predictor',
+               values_to = 'RegCoef') %>% 
+  arrange(Year, Predictor, RegCoef)
+
+
+
+regEUROPE <- read.csv("europe.csv") %>%
+  pivot_longer(cols = !(c(Year)),
+               names_to = 'Predictor',
+               values_to = 'RegCoef') %>% 
+  arrange(Year, Predictor, RegCoef)
+
+
+regAFRICA <- read.csv("africa.csv") %>%
+  pivot_longer(cols = !(c(Year)),
+               names_to = 'Predictor',
+               values_to = 'RegCoef') %>% 
+  arrange(Year, Predictor, RegCoef)
+
+
+
+regAMERICAS <- read.csv("americas.csv") %>%
+  pivot_longer(cols = !(c(Year)),
+               names_to = 'Predictor',
+               values_to = 'RegCoef') %>% 
+  arrange(Year, Predictor, RegCoef)
+
+
 lnglat <- read.csv("country-capital-lat-long-population.csv") %>%
   select(Country, Longitude, Latitude)
 
@@ -221,7 +252,7 @@ navbarPage("World Happiness Report",
                     setBackgroundColor("aliceblue"),
                     sidebarLayout(
                       sidebarPanel(
-                        sliderInput("selectyear", "Year:",
+                        sliderInput("selectyear", "Year:", sep = "",
                                     min = 2005, max = 2020,
                                     value = 1, step = 1,
                                     animate =
@@ -248,7 +279,8 @@ navbarPage("World Happiness Report",
                     titlePanel("How have Happiness scores changed for each country over time?"),
                     sidebarLayout(
                       sidebarPanel(
-                        selectInput("selectcountry", "Choose a Country:",
+                        selectInput("selectcountry", "Choose a Country:", 
+                                    multiple = TRUE, 
                                     choices=unique(whrDATA$Country)),
                         hr(),
                       ),
@@ -308,7 +340,16 @@ navbarPage("World Happiness Report",
                                 The resulting regression coefficients indicate how strongly each of the predictor variables correspond with the Happiness outcome.
                                 Larger regression coefficients indicate that the predictor variable had a greater influence on the Happiness score.
                                 Negative regression coefficients suggest that the predictor is negatively correlated with Happiness -- e.g., as the predictor increases, Happiness decreases."),
-                              plotOutput("WWRegressionPlot", height = ("80vh")))),
+                              fluidRow(
+                                selectInput("selectRegion",
+                                            "Region",
+                                            choices = c("Worldwide",
+                                                        "Africa",
+                                                        "Americas",
+                                                        "Asia",
+                                                        "Europe"), 
+                                            width = "50%"),
+                              plotOutput("WWRegressionPlot", height = ("80vh"))))),
            
            
            tabPanel("About",
