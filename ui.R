@@ -279,13 +279,13 @@ navbarPage("World Happiness Report",
                     titlePanel("How have Happiness scores changed for each country over time?"),
                     sidebarLayout(
                       sidebarPanel(
-                        selectInput("selectcountry", "Choose a Country:", 
+                        selectInput("selectcountry", "Choose a Country/Countries:", 
                                     multiple = TRUE, 
                                     choices=unique(whrDATA$Country)),
                         hr(),
                       ),
                       mainPanel (
-                        p("This line graph demonstrates how Happiness values (y-axis) have changed over time, in years (x-axis), for an individual country. Please choose a country from the dropdown to visualize how its Happiness score fluctuates over time.", 
+                        p("This line graph demonstrates how Happiness values (y-axis) have changed over time, in years (x-axis), for each country. You can select one or many countries at a time to visualize and compare how Happiness scores fluctuate over time.", 
                           style = 'times'),
                         plotOutput("HappinessvsTime", height = ("80vh"))))),
            
