@@ -244,7 +244,7 @@ function(input, output, session) {
     if (input$selectX == "GDP") {
       whrDATA %>%
         filter(Year == input$selectyear) %>%
-        ggplot(aes(GDP, Happiness)) + geom_point(color ="blue") + ggtitle("Happiness vs GDP")
+        ggplot(aes(GDP, Happiness,)) + geom_point(color ="blue") + ggtitle("Happiness vs GDP")
     }
     
     else if (input$selectX == "Support") {
