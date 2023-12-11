@@ -220,7 +220,7 @@ navbarPage("World Happiness Report",
                               
                               p(strong("Freedom"), "represents the perception of one's ability to make autonomous life choices. It is measured on a scale of 0-1, where a 0 represents dissatisfaction with one's freedom to make life choices, and a 1 represents satisfaction with one's autonomy."),
                               titlePanel("How have worldwide Happiness values changed over the years, since 2005?"), 
-                              p("This is a bar graph demonstrating the happiness index value of each country. You may choose a specific year to evaluate the happiness index scores for countries in that year. By choosing different years, you may then visualize the trends of happiness scores as time changes. Note that not all countries have data for each year included in the study."),
+                              p("This is a bar graph demonstrating the happiness index value of each country. You may use the play button to watch how the happiness index scores for countries change over the years. At any time you can stop the animation to visualize the happiness scores at a certain year. Note that not all countries have data for each year included in the study."),
                               sliderInput("selectYear", "Year:", sep = "",
                                           min = 2005, max = 2020,
                                           value = 2005, step = 1,
@@ -263,8 +263,8 @@ navbarPage("World Happiness Report",
                                     choices=colnames(select(whrDATA, 4:7)))),
                       mainPanel (
                         p("This interactive graph explores the relationship between a country's Happiness score and the different predictors. 
-             You can choose the specific indicator (x-axis) to see how it compares to Happiness values (y-axis). You may also select a specific year to see how the predictor related to Happiness in that year. 
-             Drag a box over each point(s) to display the specific country represeted by the point, as well as its corresponding data.", style = 'times'),
+             You can choose the specific indicator (x-axis) to see how it compares to Happiness values (y-axis). You can also use the play buttom to visualize how the predicator values change throughout the years. 
+             You can stop the animation at any time and drag a box over each point(s) to display the specific country represeted by the point, as well as its corresponding data.", style = 'times'),
                         
                         plotOutput("HappinessvsGDP",
                                    height = ("60vh"),
