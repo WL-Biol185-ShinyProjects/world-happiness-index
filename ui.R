@@ -285,7 +285,7 @@ navbarPage("World Happiness Report",
                         hr(),
                       ),
                       mainPanel (
-                        p("This line graph demonstrates how Happiness values (y-axis) have changed over time, in years (x-axis), for each country. You can select one or many countries at a time to visualize and compare how Happiness scores fluctuate over time.", 
+                        p("This line graph demonstrates how Happiness values (y-axis) have changed over time, in years (x-axis), for each country. You can select one or many countries to visualize and compare how Happiness scores fluctuate over time.", 
                           style = 'times'),
                         plotOutput("HappinessvsTime", height = ("80vh"))))),
            
