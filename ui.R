@@ -264,7 +264,7 @@ navbarPage("World Happiness Report",
                       mainPanel (
                         p("This interactive graph explores the relationship between a country's Happiness score and the different predictors. 
              You can choose the specific indicator (x-axis) to see how it compares to Happiness values (y-axis). You can also use the play buttom to visualize how the predicator values change throughout the years. 
-             You can stop the animation at any time and drag a box over each point(s) to display the specific country represeted by the point, as well as its corresponding data.", style = 'times'),
+             You can stop the animation at any time and drag a box over each point(s) to display the specific country represented by the point, as well as its corresponding data.", style = 'times'),
                         
                         plotOutput("HappinessvsGDP",
                                    height = ("60vh"),
